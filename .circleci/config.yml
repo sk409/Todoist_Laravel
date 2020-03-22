@@ -12,13 +12,14 @@ jobs:
       #
       # - image: redis:2.8.19
 
+    working_directory: ~/project/server/app/Todoist
+
     steps:
-      - checkout
+      - checkout:
+          path: ~/project
 
       - run: sudo apt update
       - run: sudo docker-php-ext-install zip
-      - run: ls
-      - run: cd ~/project/server/app/Todoist
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "composer.json" }}
