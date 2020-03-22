@@ -12,7 +12,7 @@ jobs:
       #
       # - image: redis:2.8.19
 
-    working_directory: ~/repo/server/app/Todoist
+    working_directory: ~/project/server/app/Todoist
 
     steps:
       - checkout
