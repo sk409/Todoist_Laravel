@@ -12,6 +12,9 @@ jobs:
       #
       # - image: redis:2.8.19
 
+    environment:
+      APP_KEY: base64:SDxj00KNc1WA+5Lh/xUDNXl/F3wepch+A8zZsBEfl4E=
+
     working_directory: ~/project/server/app/Todoist
 
     steps:
