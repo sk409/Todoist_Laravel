@@ -1,0 +1,14 @@
+version: "3.3"
+services:
+  database:
+    build: database
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  server:
+    build: server
+    ports:
+      - 8090:8000
+    tty: true
+    volumes:
+      - ./server/app:/app

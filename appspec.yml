@@ -1,0 +1,5 @@
+version: 0.0
+os: linux
+files:
+  - source: server/app/Todoist/
+    destination: /var/www/html/
