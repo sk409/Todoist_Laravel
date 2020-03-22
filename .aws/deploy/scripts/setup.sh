@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp ~/.env /var/www/html/Todoist
+cp ~/app/.env /var/www/html/Todoist
