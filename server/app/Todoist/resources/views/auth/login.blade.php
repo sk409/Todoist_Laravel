@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
+@section("links")
+<link rel="stylesheet" href="{{asset("css/login.css")}}">
+@endsection
+
+
 @section('content')
-<div class="align-items-center container d-flex h-100 justify-content-center">
+<div class="align-items-center container d-flex flex-column h-100 justify-content-center">
     <div class="border login-form-card">
         <div class="font-large primary px-2 py-3 text-white">
             Todoistにログイン
@@ -24,16 +29,12 @@
                 </div>
             </div>
             <div class="mt-3 text-center">
-                <input type="submit" class="button" value="ログイン">
+                <input type="submit" class="button primary" value="ログイン">
             </div>
         </form>
     </div>
-    <div>
-        <a href="{{route("register")}}">アカウントをお持ちでない方</a>
+    <div class="mt-4">
+        <a href="{{route("register")}}">Todoistに登録</a>
     </div>
 </div>
-@endsection
-
-@section("links")
-<link rel="stylesheet" href="{{asset("css/login.css")}}">
 @endsection

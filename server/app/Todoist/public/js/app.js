@@ -49204,12 +49204,26 @@ if (token) {
 //     encrypted: true
 // });
 
+
+window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
 /***/ }),
 
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
   \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/home.scss":
+/*!**********************************!*\
+  !*** ./resources/sass/home.scss ***!
+  \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -49228,16 +49242,29 @@ if (token) {
 
 /***/ }),
 
+/***/ "./resources/sass/register.scss":
+/*!**************************************!*\
+  !*** ./resources/sass/register.scss ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ 0:
-/*!*****************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/login.scss ***!
-  \*****************************************************************************************/
+/*!***************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/home.scss ./resources/sass/login.scss ./resources/sass/register.scss ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\js\app.js */"./resources/js/app.js");
 __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\sass\app.scss */"./resources/sass/app.scss");
-module.exports = __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\sass\login.scss */"./resources/sass/login.scss");
+__webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\sass\home.scss */"./resources/sass/home.scss");
+__webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\sass\login.scss */"./resources/sass/login.scss");
+module.exports = __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\sass\register.scss */"./resources/sass/register.scss");
 
 
 /***/ })

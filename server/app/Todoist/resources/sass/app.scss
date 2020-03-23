@@ -14,11 +14,14 @@ body {
 }
 
 .button {
-    background: $primary;
     border: none;
     border-radius: 4px;
-    color: white;
+    cursor: pointer;
     padding: 0.25rem 0.5rem;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .font-large {
@@ -29,11 +32,32 @@ body {
     border: 1px solid lightgray;
 }
 
+.left-0 {
+    left: 0;
+}
+
 .navbar-laravel {
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.p-absolute {
+    position: absolute;
+}
+
+.p-relative {
+    position: relative;
+}
+
 .primary {
     background: $primary;
+    color: white;
+}
+
+.top-0 {
+    top: 0;
+}
+
+.white {
+    background: $white;
 }
