@@ -1,9 +1,9 @@
 node_modules
+.env
 server/app/Todoist/public/hot
 server/app/Todoist/public/storage
 server/app/Todoist/storage/*.key
 server/app/Todoist/vendor
-server/app/Todoist/.env
 server/app/Todoist/.phpunit.result.cache
 server/app/Todoist/Homestead.json
 server/app/Todoist/Homestead.yaml
