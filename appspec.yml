@@ -6,3 +6,4 @@ files:
 hooks:
   AfterInstall:
     - location: .aws/deploy/scripts/setup.sh
+      runas: ec2-user
