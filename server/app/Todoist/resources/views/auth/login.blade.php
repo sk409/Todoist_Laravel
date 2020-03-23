@@ -28,6 +28,9 @@
             </div>
         </form>
     </div>
+    <div>
+        <a href="{{route("register")}}">アカウントをお持ちでない方</a>
+    </div>
 </div>
 @endsection
 
