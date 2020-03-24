@@ -6153,7 +6153,6 @@ new Vue({
   },
   methods: {
     createdTodo: function createdTodo(todo) {
-      console.log(todo);
       this.project.todos.push(todo);
     },
     selectedProject: function selectedProject(project) {

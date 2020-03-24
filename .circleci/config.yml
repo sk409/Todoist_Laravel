@@ -32,7 +32,8 @@ workflows:
     jobs:
       - build
       - aws-code-deploy/deploy:
-          branches:
+          filters:
+            branches:
             only:
               - master
           requires:
