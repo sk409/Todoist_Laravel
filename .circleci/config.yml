@@ -36,6 +36,7 @@ workflows:
             branches:
             only:
               - master
+
           requires:
             - build
           application-name: Todoist_Laravel
