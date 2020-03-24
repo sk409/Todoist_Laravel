@@ -24,9 +24,9 @@ class ProjectStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "boolean" => "boolean|required",
+            "favorite" => "integer|required",
             "name" => "max:256|string|required",
-            "colorId" => "integer|required",
+            "colorId" => "integer",
         ];
     }
 }

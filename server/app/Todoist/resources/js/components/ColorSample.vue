@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .color-sample {
     border-radius: 50%;
     display: inline-block;

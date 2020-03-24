@@ -1,26 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Repositories\ProjectRepository;
-use Illuminate\Http\Request;
+use App\Http\Requests\ProjectStoreRequest;
+use App\Services\ProjectService;
 use Illuminate\Support\Facades\Auth;
 
-class ProjectsController extends Controller
+class ProjectsController extends ResourceController
 {
 
-    private $projectRepository;
-
-    public function __construct(ProjectRepository $projectRepository)
+    public function __construct(ProjectService $projectService)
     {
-        parent::__construct($projectRepository);
-        $this->projectRepository = $projectRepository;
+        parent::__construct($projectService);
     }
 
-    public function store(Request $request)
+    public function store(ProjectStoreRequest $request)
     {
         $params = $request->all();
-        $params["user_id"] = Auth::user()->id;
-        return $this->projectRepository->create($params);
+        $params["userId"] = Auth::user()->id;
+        return $this->service->create($params);
+    }
+
+    public function user()
+    {
+        $where = ["userId" => Auth::user()->id];
+        $options = ["where" => $where];
+        return $this->service->findAll($options);
     }
 }

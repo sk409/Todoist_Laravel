@@ -7,16 +7,16 @@
 // Bootstrap
 @import "~bootstrap/scss/bootstrap";
 
-$primary: #db4c3f;
-
 body {
     height: 100vh;
 }
 
 .button {
+    background: none;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    display: inline-block;
     padding: 0.25rem 0.5rem;
 }
 
@@ -30,6 +30,7 @@ body {
 
 .input {
     border: 1px solid lightgray;
+    padding: 0.25rem;
 }
 
 .left-0 {
@@ -52,6 +53,14 @@ body {
 .primary {
     background: $primary;
     color: white;
+}
+
+.primary-text {
+    color: $primary;
+}
+
+.round {
+    border-radius: 1000px;
 }
 
 .top-0 {

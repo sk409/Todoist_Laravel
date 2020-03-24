@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Repositories\ColorRepository;
-use Illuminate\Http\Request;
+use App\Services\ColorService;
 
-class ColorsController extends Controller
+class ColorsController extends ResourceController
 {
 
-    public function __construct(ColorRepository $colorRepository)
+    public function __construct(ColorService $colorService)
     {
-        parent::__construct($colorRepository);
+        parent::__construct($colorService);
     }
 }

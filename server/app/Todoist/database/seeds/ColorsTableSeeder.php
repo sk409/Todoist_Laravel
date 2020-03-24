@@ -1,10 +1,18 @@
 <?php
 
-use App\Color;
+use App\Services\ColorService;
 use Illuminate\Database\Seeder;
 
 class ColorsTableSeeder extends Seeder
 {
+
+    private $colorService;
+
+    public function __construct(ColorService $colorService)
+    {
+        $this->colorService = $colorService;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -25,7 +33,7 @@ class ColorsTableSeeder extends Seeder
             ["チャコール", "808080"]
         ];
         foreach ($colors as $color) {
-            Color::create(["name" => $color[0], "hex" => $color[1]]);
+            $this->colorService->create(["name" => $color[0], "hex" => $color[1]]);
         }
     }
 }

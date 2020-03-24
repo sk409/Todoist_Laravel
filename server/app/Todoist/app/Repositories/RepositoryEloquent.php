@@ -79,6 +79,18 @@ class RepositoryEloquent implements Repository
             $where = $option["where"];
             $builder = $this->where($where, $builder);
         }
+        if (isset($option["sort"])) {
+            $sort = $option["sort"];
+            foreach ($sort as $s) {
+                $key = $s[0];
+                $direction = count($s) === 1 ? "asc" : $s[1];
+                if (is_null($builder)) {
+                    $builder = call_user_func($this->eloquent . "::orderBy", $key, $direction);
+                } else {
+                    $builder = $builder->orderBy($key, $direction);
+                }
+            }
+        }
         if (isset($option["offset"])) {
             $offset = $option["offset"];
             if (is_null($builder)) {
@@ -109,29 +121,41 @@ class RepositoryEloquent implements Repository
 
     private function where(array $where, $builder = null): Builder
     {
-        $narrowDown = function ($query) use (&$builder) {
-            $lhs = $query[0];
+        $call = function ($lhs, $operation, $rhs) use (&$builder) {
+            if (is_null($builder)) {
+                if (is_null($rhs)) {
+                    $builder = call_user_func($this->eloquent . "::whereNull", $lhs);
+                } else {
+                    $builder = call_user_func($this->eloquent . "::where", $lhs, $operation, $rhs);
+                }
+            } else {
+                if (is_null($rhs)) {
+                    $builder = $builder->whereNull($lhs);
+                } else {
+                    $builder = $builder->where($lhs, $operation, $rhs);
+                }
+            }
+        };
+        $narrowDown = function ($query) use ($call) {
+            $lhs = snake_case($query[0]);
             $operation = count($query) === 2 ? "=" : $query[1];
             $rhs = count($query) === 2 ? $query[1] : $query[2];
-            if (is_null($builder)) {
-                $builder = call_user_func($this->eloquent . "::where", $lhs, $operation, $rhs);
-            } else {
-                $builder = $builder->where($lhs, $operation, $rhs);
-            }
+            $call($lhs, $operation, $rhs);
         };
         if (count($where) === 3 && gettype($where[0]) === "string" && gettype($where[1]) === "string") {
             $narrowDown($where);
-        } else if (count($where) === 2 && gettype($where[0] === "string")) {
+        } else if (count($where) === 2 && isset($where[0]) && gettype($where[0] === "string")) {
             $narrowDown($where);
         } else {
             foreach ($where as $key => $value) {
                 if (gettype($key) === "integer") {
                     $narrowDown($value);
                 } else {
-                    if (is_null($builder)) {
-                        $builder = call_user_func($this->eloquent . "::where", $key, $value);
+                    $key = snake_case($key);
+                    if (is_null($value)) {
+                        $call($key, null, null);
                     } else {
-                        $builder = $builder->where($key, $value);
+                        $call($key, "=", $value);
                     }
                 }
             }

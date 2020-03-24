@@ -18,14 +18,14 @@
                         @click="colorPicker = true"
                     >
                         <div
-                            v-if="color"
+                            v-if="selectedColor"
                             class="align-items-center d-flex h-100"
                         >
                             <ColorSample
-                                :color="color.hex"
+                                :color="selectedColor.hex"
                                 :size="16"
                             ></ColorSample>
-                            <span class="ml-2">{{ color.name }}</span>
+                            <span class="ml-2">{{ selectedColor.name }}</span>
                         </div>
                     </div>
                     <ColorPicker
@@ -36,7 +36,9 @@
                 </div>
             </div>
             <div class="d-flex mt-3">
-                <span class="border button ml-auto">キャンセル</span>
+                <span class="border button ml-auto" @click="$emit('cancel')"
+                    >キャンセル</span
+                >
                 <div class="button ml-2 mr-1 primary" @click="create">追加</div>
             </div>
         </div>
@@ -48,6 +50,12 @@ import ajax from "../ajax.js";
 import ColorPicker from "./ColorPicker.vue";
 import ColorSample from "./ColorSample.vue";
 export default {
+    props: {
+        defaultColor: {
+            default: null,
+            validator: v => typeof v === "object" || v === null
+        }
+    },
     components: {
         ColorPicker,
         ColorSample
@@ -58,6 +66,11 @@ export default {
             colorPicker: false,
             name: ""
         };
+    },
+    computed: {
+        selectedColor() {
+            return this.color || this.defaultColor;
+        }
     },
     created() {
         this.fetchCharcoal();
@@ -70,7 +83,7 @@ export default {
                 color_id: this.color.id
             };
             ajax.post("/projects", data).then(response => {
-                console.log(response);
+                this.$emit("created", response.data);
             });
         },
         fetchCharcoal() {

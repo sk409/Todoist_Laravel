@@ -14,39 +14,4 @@ use Illuminate\Http\Request;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-
-    private $repository;
-
-    public function __construct(Repository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-
-    public function findAll(Request $request)
-    {
-        if (empty($conditions)) {
-            return $this->repository->all();
-        }
-        $option = [
-            "where" => $request->all()
-        ];
-        return $this->repository->findAll($option);
-    }
-
-    public function findOne(Request $request)
-    {
-        if (empty($request->all())) {
-            return $this->repository->first();
-        }
-        $option = [
-            "where" => $request->all()
-        ];
-        return $this->repository->findOne($option);
-    }
-
-    public function index()
-    {
-        return $this->repository->all();
-    }
 }

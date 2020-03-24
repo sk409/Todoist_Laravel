@@ -9,11 +9,11 @@
 @endsection
 
 @section('content')
-<div id="home" class="d-flex mx-auto">
-    <menu-app>
+<div ref="defaultProjectJSON" hidden v-text="{{json_encode($defaultProject)}}"></div>
+<div id="home" class="d-flex mx-auto h-100">
+    <menu-app :default-color="{{json_encode($defaultColor)}}" v-on:selected:project="selectedProject">
     </menu-app>
-    <div>
-    </div>
+    <todo-project :project="project" class="w-100 h-100" v-on:created:todo="createdTodo"></todo-project>
 </div>
 @endsection
 

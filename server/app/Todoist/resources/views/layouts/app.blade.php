@@ -25,9 +25,11 @@
 
 <body>
     <div id="app" class="h-100">
-        <main class="h-100 py-4">
+        <main class="d-flex flex-column h-100 pt-4">
             @yield("navbar")
-            @yield('content')
+            <div class="flex-fill">
+                @yield('content')
+            </div>
         </main>
     </div>
     <script src="{{ asset('js/app.js') }}"></script>

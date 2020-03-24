@@ -1,28 +1,42 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Services\ColorService;
+use App\Services\ProjectService;
+use App\Services\TodoService;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+
+    private $colorService;
+    private $projectService;
+    private $todoService;
+
+    public function __construct(ColorService $colorService, ProjectService $projectService, TodoService $todoService)
     {
-        $this->middleware('auth');
+        $this->colorService = $colorService;
+        $this->projectService = $projectService;
+        $this->todoService = $todoService;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
+    public function home()
     {
-        return view('home');
+        $user = Auth::user();
+        $defaultColor = $this->colorService->findOne([
+            "where" => ["hex", "808080"]
+        ]);
+        $defaultProject = $this->projectService->findOne([
+            "sort" => [["id"]],
+            "where" => ["userId", $user->id],
+        ]);
+        $todos = $this->todoService->findAll(([
+            "where" => ["projectId" => $defaultProject->id, "sectionId" => null]
+        ]));
+        $defaultProject->todos = $todos;
+        return view('home', ["defaultColor" => $defaultColor, "defaultProject" => $defaultProject]);
     }
 }
