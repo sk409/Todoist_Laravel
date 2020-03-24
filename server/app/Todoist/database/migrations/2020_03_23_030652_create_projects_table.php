@@ -15,10 +15,10 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
+            $table->boolean("favorite");
             $table->string("name", 256);
             $table->integer("color_id")->unsigned();
             $table->integer("user_id")->unsigned();
-            $table->boolean("favorite");
             $table->timestamps();
             $table->foreign("color_id")->references("id")->on("colors");
             $table->foreign("user_id")->references("id")->on("users");

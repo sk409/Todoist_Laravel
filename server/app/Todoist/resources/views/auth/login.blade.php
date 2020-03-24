@@ -11,13 +11,14 @@
         <div class="font-large primary px-2 py-3 text-white">
             Todoistにログイン
         </div>
-        <form class="px-2 py-3">
+        <form class="px-2 py-3" action="{{route("login")}}" method="POST">
+            @csrf
             <div>
-                <label for="name-input">
-                    ユーザ名
+                <label for="email-input">
+                    メールアドレス
                 </label>
                 <div>
-                    <input id="name-input" class="input w-100" name="username" type="text">
+                    <input id="email-input" class="input w-100" name="email" type="email">
                 </div>
             </div>
             <div class="mt-3">

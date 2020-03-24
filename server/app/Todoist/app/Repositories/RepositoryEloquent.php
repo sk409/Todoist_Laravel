@@ -31,6 +31,11 @@ class RepositoryEloquent implements Repository
         return $buder->count();
     }
 
+    public function create(array $params)
+    {
+        return call_user_func($this->eloquent . "::create", $this->snakeCase($params));
+    }
+
     public function findAll(array $option)
     {
         return $this->find($option)->all();
@@ -93,9 +98,17 @@ class RepositoryEloquent implements Repository
         return $builder->get();
     }
 
+    private function snakeCase(array $params): array
+    {
+        $result = [];
+        foreach ($params as $key => $param) {
+            $result[snake_case($key)] = $param;
+        }
+        return $result;
+    }
+
     private function where(array $where, $builder = null): Builder
     {
-        info($where);
         $narrowDown = function ($query) use (&$builder) {
             $lhs = $query[0];
             $operation = count($query) === 2 ? "=" : $query[1];
@@ -111,8 +124,16 @@ class RepositoryEloquent implements Repository
         } else if (count($where) === 2 && gettype($where[0] === "string")) {
             $narrowDown($where);
         } else {
-            foreach ($where as $query) {
-                $narrowDown($query);
+            foreach ($where as $key => $value) {
+                if (gettype($key) === "integer") {
+                    $narrowDown($value);
+                } else {
+                    if (is_null($builder)) {
+                        $builder = call_user_func($this->eloquent . "::where", $key, $value);
+                    } else {
+                        $builder = $builder->where($key, $value);
+                    }
+                }
             }
         }
         return $builder;

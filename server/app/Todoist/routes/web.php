@@ -20,4 +20,5 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get("/colors", "ColorsController@index")->name("colors.index");
     Route::get("/colors/findOne", "ColorsController@findOne")->name("colors.findOne");
+    Route::post("/projects", "ProjectsController@store")->name("projects.store");
 });

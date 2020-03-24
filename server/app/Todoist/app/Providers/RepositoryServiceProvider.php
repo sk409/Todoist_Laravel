@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Repositories\ColorRepository;
 use App\Repositories\ColorRepositoryEloquent;
+use App\Repositories\ProjectRepository;
+use App\Repositories\ProjectRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -16,6 +18,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ColorRepository::class, ColorRepositoryEloquent::class);
+        $this->app->bind(ProjectRepository::class, ProjectRepositoryEloquent::class);
     }
 
     /**

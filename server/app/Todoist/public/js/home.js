@@ -1967,10 +1967,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -1982,24 +1978,37 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       color: null,
-      colorPicker: false
+      colorPicker: false,
+      name: ""
     };
   },
   created: function created() {
     this.fetchCharcoal();
   },
   methods: {
-    inputColor: function inputColor(color) {
-      this.color = color;
-      this.colorPicker = false;
+    create: function create() {
+      var data = {
+        favorite: 0,
+        name: this.name,
+        color_id: this.color.id
+      };
+      _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/projects", data).then(function (response) {
+        console.log(response);
+      });
     },
     fetchCharcoal: function fetchCharcoal() {
+      var _this = this;
+
       var data = {
         name: "チャコール"
       };
       _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/colors/findOne", data).then(function (response) {
-        console.log(response);
+        _this.color = response.data;
       });
+    },
+    inputColor: function inputColor(color) {
+      this.color = color;
+      this.colorPicker = false;
     }
   }
 });
@@ -3346,8 +3355,36 @@ var render = function() {
       _vm._v("\n        プロジェクトを追加\n    ")
     ]),
     _vm._v(" "),
-    _c("form", { staticClass: "p-3" }, [
-      _vm._m(0),
+    _c("div", { staticClass: "p-3" }, [
+      _c("div", { staticClass: "mx-auto" }, [
+        _c("label", { attrs: { for: "name-input" } }, [
+          _vm._v("プロジェクト名")
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.name,
+                expression: "name"
+              }
+            ],
+            staticClass: "input w-100",
+            attrs: { type: "text" },
+            domProps: { value: _vm.name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.name = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
       _vm._v(" "),
       _c("div", { staticClass: "mt-3 mx-auto" }, [
         _c("label", [_vm._v("プロジェクトカラー")]),
@@ -3403,39 +3440,24 @@ var render = function() {
         )
       ]),
       _vm._v(" "),
-      _vm._m(1)
+      _c("div", { staticClass: "d-flex mt-3" }, [
+        _c("span", { staticClass: "border button ml-auto" }, [
+          _vm._v("キャンセル")
+        ]),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass: "button ml-2 mr-1 primary",
+            on: { click: _vm.create }
+          },
+          [_vm._v("追加")]
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "mx-auto" }, [
-      _c("label", { attrs: { for: "name-input" } }, [_vm._v("プロジェクト名")]),
-      _vm._v(" "),
-      _c("div", [
-        _c("input", { staticClass: "input w-100", attrs: { type: "text" } })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-flex mt-3" }, [
-      _c("span", { staticClass: "border button ml-auto" }, [
-        _vm._v("キャンセル")
-      ]),
-      _vm._v(" "),
-      _c("input", {
-        staticClass: "button ml-2 mr-1 primary",
-        attrs: { type: "submit", value: "追加" }
-      })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

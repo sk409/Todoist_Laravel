@@ -3,11 +3,11 @@
         <div class="border-bottom font-large form-title p-3">
             プロジェクトを追加
         </div>
-        <form class="p-3">
+        <div class="p-3">
             <div class="mx-auto">
                 <label for="name-input">プロジェクト名</label>
                 <div>
-                    <input class="input w-100" type="text" />
+                    <input v-model="name" class="input w-100" type="text" />
                 </div>
             </div>
             <div class="mt-3 mx-auto">
@@ -37,13 +37,9 @@
             </div>
             <div class="d-flex mt-3">
                 <span class="border button ml-auto">キャンセル</span>
-                <input
-                    class="button ml-2 mr-1 primary"
-                    type="submit"
-                    value="追加"
-                />
+                <div class="button ml-2 mr-1 primary" @click="create">追加</div>
             </div>
-        </form>
+        </div>
     </div>
 </template>
 
@@ -59,24 +55,35 @@ export default {
     data() {
         return {
             color: null,
-            colorPicker: false
+            colorPicker: false,
+            name: ""
         };
     },
     created() {
         this.fetchCharcoal();
     },
     methods: {
-        inputColor(color) {
-            this.color = color;
-            this.colorPicker = false;
+        create() {
+            const data = {
+                favorite: 0,
+                name: this.name,
+                color_id: this.color.id
+            };
+            ajax.post("/projects", data).then(response => {
+                console.log(response);
+            });
         },
         fetchCharcoal() {
             const data = {
                 name: "チャコール"
             };
             ajax.get("/colors/findOne", data).then(response => {
-                console.log(response);
+                this.color = response.data;
             });
+        },
+        inputColor(color) {
+            this.color = color;
+            this.colorPicker = false;
         }
     }
 };
