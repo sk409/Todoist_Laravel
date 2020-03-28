@@ -1970,10 +1970,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     createdProject: function createdProject(project) {
       var _this = this;
 
+      console.log(project);
       var data = {
         id: project.id
       };
-      _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/projects/forHomeOne", data).then(function (response) {
+      _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/projects/findByIdSuperficial", data).then(function (response) {
         _this.projects.push(response.data);
       });
     },
@@ -2789,7 +2790,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.color-item[data-v-023f0f94]:hover {\n    background: #f0f0f0;\n}\n.color-picker[data-v-023f0f94] {\n    border-radius: 8px;\n    overflow-y: scroll;\n}\n", ""]);
+exports.push([module.i, "\n.color-item[data-v-023f0f94]:hover {\n  background: #f0f0f0;\n}\n.color-picker[data-v-023f0f94] {\n  border-radius: 8px;\n  overflow-y: scroll;\n}\n", ""]);
 
 // exports
 

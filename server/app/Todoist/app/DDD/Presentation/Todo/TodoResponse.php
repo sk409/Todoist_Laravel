@@ -3,10 +3,11 @@
 namespace App\DDD\Presentation\Todo;
 
 use App\DDD\Domain\Todo\Todo;
+use App\DDD\Presentation\Response;
 use App\DDD\Presentation\TodoStatus\TodoStatusResponse;
 use Carbon\Carbon;
 
-class TodoResponse
+class TodoResponse extends Response
 {
 
     /** @var Carbon */

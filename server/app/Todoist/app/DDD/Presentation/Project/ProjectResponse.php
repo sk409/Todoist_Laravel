@@ -2,37 +2,33 @@
 
 namespace App\DDD\Presentation\Project;
 
-use App\DDD\Domain\CreatedAt;
 use App\DDD\Domain\Project\Project;
-use App\DDD\Domain\Project\ProjectFavorite;
-use App\DDD\Domain\Project\ProjectId;
-use App\DDD\Domain\Project\ProjectName;
-use App\DDD\Domain\UpdatedAt;
+use App\DDD\Presentation\Response;
 
-class ProjectResponse
+class ProjectResponse extends Response
 {
 
-    /** @var ProjectFavorite */
+    /** @var bool */
     public $favorite;
 
-    /** @var ProjectId */
+    /** @var int */
     public $id;
 
-    /** @var ProjectName */
+    /** @var string */
     public $name;
 
-    /** @var CreatedAt */
+    /** @var Carbon */
     public $createdAt;
 
-    /** @var UpdatedAt */
+    /** @var Carbon */
     public $updatedAt;
 
     public function constructFrom(Project $project)
     {
-        $this->favorite = ProjectFavorite::create($project->getFavorite()->getValue());
-        $this->id = ProjectId::create($project->getId()->getValue());
-        $this->name = ProjectName::create($project->getName()->getValue());
-        $this->createdAt = CreatedAt::create($project->getCreatedAt()->getValue());
-        $this->updatedAt = UpdatedAt::create($project->getUpdatedAt()->getValue());
+        $this->favorite = $project->getFavorite()->getValue();
+        $this->id = $project->getId()->getValue();
+        $this->name = $project->getName()->getValue();
+        $this->createdAt = $project->getCreatedAt()->getValue();
+        $this->updatedAt = $project->getUpdatedAt()->getValue();
     }
 }

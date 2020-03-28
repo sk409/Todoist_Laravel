@@ -7,9 +7,10 @@ use App\DDD\Domain\TodoStatus\TodoStatus as TodoStatusDomain;
 use App\DDD\Domain\TodoStatus\TodoStatusId;
 use App\DDD\Domain\TodoStatus\TodoStatusState;
 use App\DDD\Domain\UpdatedAt;
+use App\DDD\Presentation\Response;
 use Carbon\Carbon;
 
-class TodoStatusResponse
+class TodoStatusResponse extends Response
 {
 
     /** @var int */

@@ -3,9 +3,10 @@
 namespace App\DDD\Presentation\Color;
 
 use App\DDD\Domain\Color\Color as ColorDomain;
+use App\DDD\Presentation\Response;
 use Carbon\Carbon;
 
-class ColorResponse
+class ColorResponse extends Response
 {
 
     /** @var string */

@@ -72,10 +72,11 @@ export default {
   },
   methods: {
     createdProject(project) {
+      console.log(project);
       const data = {
         id: project.id
       };
-      ajax.get("/projects/forHomeOne", data).then(response => {
+      ajax.get("/projects/findByIdSuperficial", data).then(response => {
         this.projects.push(response.data);
       });
     },

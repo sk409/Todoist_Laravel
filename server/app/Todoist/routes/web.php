@@ -19,8 +19,7 @@ Auth::routes();
 Route::group(["middleware" => ["auth"]], function () {
     Route::get('/home', 'HomeController@home')->name('home');
     Route::get("/colors", "ColorsController@index")->name("colors.index");
-    Route::get("/colors/findOne", "ColorsController@findOne")->name("colors.findOne");
-    Route::post("/projects/default", "ProjectsController@storeDefaultProject")->name("projects.storeDefaultProject");
+    Route::get("/projects/findByIdSuperficial", "ProjectsController@findByIdSuperficial")->name("projects.findByIdSuperficial");
     Route::post("/projects", "ProjectsController@store")->name("projects.store");
 
     Route::post("/todos", "TodosController@store")->name("todos.store");

@@ -9,7 +9,7 @@ class Id
 
     public const MIN = 1;
 
-    public static function validate($id): bool
+    public static function validate(int $id): bool
     {
         return !validator([$id], ["min:" . self::MIN])->fails();
     }
