@@ -19,8 +19,22 @@ class TodoSectionServiceDefault implements TodoSectionService
         $this->todoSectionRepository = $todoSectionRepository;
     }
 
+    public function forHomeAll(array $options) {
+        $options["with"] = $this->memberForHome();
+        return $this->todoSectionRepository->findAll($options);
+    }
+
+    public function forHomeOne(array $options) {
+        $options["with"] = $this->memberForHome();
+        return $this->todoSectionRepository->findOne($options);
+    }
+
     public function repository(): Repository
     {
         return $this->todoSectionRepository;
+    }
+
+    private function memberForHome(): array {
+        return ["todos"];
     }
 }

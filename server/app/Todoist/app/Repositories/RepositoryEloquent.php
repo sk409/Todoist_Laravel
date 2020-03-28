@@ -53,7 +53,7 @@ class RepositoryEloquent implements Repository
 
     public function update(int $id, array $params)
     {
-        call_user_func($this->eloquent . "::find", $id)->update($params);
+        call_user_func($this->eloquent . "::find", $id)->update($this->snakeCase($params));
     }
 
     private function find(array $option): Collection

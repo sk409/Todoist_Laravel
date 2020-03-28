@@ -16,4 +16,6 @@ interface ResourceService
     public function findOne(array $options);
 
     public function first();
+
+    public function update($id, array $params);
 }

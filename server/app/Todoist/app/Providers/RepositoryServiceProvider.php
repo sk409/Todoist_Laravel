@@ -2,16 +2,12 @@
 
 namespace App\Providers;
 
-use App\Repositories\ColorRepository;
-use App\Repositories\ColorRepositoryEloquent;
-use App\Repositories\PriorityRepository;
-use App\Repositories\PriorityRepositoryEloquent;
-use App\Repositories\ProjectRepository;
-use App\Repositories\ProjectRepositoryEloquent;
-use App\Repositories\TodoRepository;
-use App\Repositories\TodoRepositoryEloquent;
-use App\Repositories\TodoSectionRepository;
-use App\Repositories\TodoSectionRepositoryEloquent;
+use App\DDD\Infrastructure\Repository\Color\ColorRepository;
+use App\DDD\Infrastructure\Repository\Color\ColorRepositoryEloquent;
+use App\DDD\Infrastructure\Repository\Project\ProjectRepository;
+use App\DDD\Infrastructure\Repository\Project\ProjectRepositoryEloquent;
+use App\DDD\Infrastructure\Repository\User\UserRepository;
+use App\DDD\Infrastructure\Repository\User\UserRepositoryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -24,10 +20,8 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ColorRepository::class, ColorRepositoryEloquent::class);
-        $this->app->bind(PriorityRepository::class, PriorityRepositoryEloquent::class);
         $this->app->bind(ProjectRepository::class, ProjectRepositoryEloquent::class);
-        $this->app->bind(TodoSectionRepository::class, TodoSectionRepositoryEloquent::class);
-        $this->app->bind(TodoRepository::class, TodoRepositoryEloquent::class);
+        $this->app->bind(UserRepository::class, UserRepositoryEloquent::class);
     }
 
     /**

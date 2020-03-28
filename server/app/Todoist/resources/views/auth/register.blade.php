@@ -6,13 +6,12 @@
 
 
 @section('content')
-<div class="align-items-center container d-flex flex-column h-100 justify-content-center">
+<div class="align-items-center container d-flex flex-column h-100vh justify-content-center w-100vw">
     <div class="border register-form-card">
         <div class="font-large primary px-2 py-3 text-white">
             Todoistに登録
         </div>
         <div class="px-2 py-3">
-            @csrf
             <div>
                 <label for="name-input">
                     ユーザ名

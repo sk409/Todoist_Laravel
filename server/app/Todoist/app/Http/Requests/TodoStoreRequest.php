@@ -27,7 +27,8 @@ class TodoStoreRequest extends FormRequest
             "content" => "max:1024|required|string",
             "dueData" => "date",
             "projectId" => "integer|required",
-            "priorityId" => "integer"
+            "priorityId" => "integer",
+            "sectionId" => "integer",
         ];
     }
 }

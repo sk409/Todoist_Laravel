@@ -10882,10 +10882,6 @@ a.text-dark:focus {
   }
 }
 
-body {
-  height: 100vh;
-}
-
 .button {
   background: none;
   border: none;
@@ -10901,6 +10897,10 @@ body {
 
 .font-large {
   font-size: 20px;
+}
+
+.h-100vh {
+  height: 100vh;
 }
 
 .input {
@@ -10942,7 +10942,15 @@ body {
   top: 0;
 }
 
+.w-100vw {
+  width: 100vw;
+}
+
 .white {
   background: #ffffff;
+}
+
+.word-break-all {
+  word-break: break-all;
 }
 

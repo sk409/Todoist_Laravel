@@ -17,11 +17,22 @@ new Vue({
         this.project = JSON.parse(defaultProjectJSON);
     },
     methods: {
-        createdTodo(todo) {
-            this.project.todos.push(todo);
+        createdSection(section) {
+            section.todos = [];
+            this.project.sections.push(section);
+        },
+        createdTodo(todo, index) {
+            if (index === undefined) {
+                this.project.todos.push(todo);
+            } else {
+                this.project.sections[index].todos.push(todo);
+            }
         },
         selectedProject(project) {
             this.project = project;
+        },
+        updateSection(section, index) {
+            this.$set(this.project.sections, index, section);
         }
     }
 });

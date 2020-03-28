@@ -25,7 +25,7 @@
 
 <body>
     <div id="app" class="h-100">
-        <main class="d-flex flex-column h-100 pt-4">
+        <main class="d-flex flex-column h-100">
             @yield("navbar")
             <div class="flex-fill">
                 @yield('content')

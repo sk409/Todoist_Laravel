@@ -33,4 +33,8 @@ trait ResourceServiceTrait
     {
         return $this->repository()->first();
     }
+
+    public function update($id, array $params) {
+        return $this->repository()->update($id, $params);
+    }
 }

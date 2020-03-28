@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration
             $table->increments('id');
             $table->boolean("favorite");
             $table->string("name", 256);
-            $table->integer("color_id")->unsigned()->nullable();
+            $table->integer("color_id")->unsigned();
             $table->integer("user_id")->unsigned();
             $table->timestamps();
             $table->foreign("color_id")->references("id")->on("colors");

@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-app primary"></div>
+  <div class="navbar-app primary"></div>
 </template>
 
 <script>
@@ -8,6 +8,6 @@ export default {};
 
 <style scoped>
 .navbar-app {
-    height: 48px;
+  height: 48px;
 }
 </style>

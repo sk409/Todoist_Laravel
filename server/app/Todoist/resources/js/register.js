@@ -16,14 +16,21 @@ new Vue({
                 password: this.password,
                 password_confirmation: this.passwordConfirmation
             };
-            ajax.post("/register", data).then(() => {
-                const data = {
-                    favorite: 0,
-                    name: "インボックス"
-                }
-                ajax.post("/projects", data).then(response => {
-                    location.href = "/home";
-                });
+            ajax.post("/register", data).then(async () => {
+                // const data = {
+                //     hex: "808080"
+                // };
+                // const response = await ajax.get("/colors/findOne", data);
+                // return response.data;
+            }).then(async color => {
+                // const data = {
+                //     favorite: 0,
+                //     name: "インボックス",
+                //     colorId: color.id
+                // }
+                // await ajax.post("/projects", data);
+            }).then(() => {
+                location.href = "/home";
             });
         }
     }

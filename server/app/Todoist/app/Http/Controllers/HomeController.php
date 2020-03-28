@@ -4,39 +4,38 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\Services\ColorService;
-use App\Services\ProjectService;
-use App\Services\TodoService;
+use App\DDD\Domain\Color\ColorHex;
+use App\DDD\Domain\User\UserId;
+use App\DDD\Infrastructure\Repository\Color\ColorRepository;
+use App\DDD\Presentation\Color\ColorResponse;
+use App\DDD\Presentation\Project\ProjectSuperficialResponse;
+use App\DDD\Service\QueryService\Project\ProjectQueryService;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
 
-    private $colorService;
-    private $projectService;
-    private $todoService;
+    /** @var ColorRepository */
+    private $colorRepository;
 
-    public function __construct(ColorService $colorService, ProjectService $projectService, TodoService $todoService)
+    /** @var ProjectQueryService */
+    private $projectQueryService;
+
+    public function __construct(ColorRepository $colorRepository, ProjectQueryService $projectQueryService)
     {
-        $this->colorService = $colorService;
-        $this->projectService = $projectService;
-        $this->todoService = $todoService;
+        $this->colorRepository = $colorRepository;
+        $this->projectQueryService = $projectQueryService;
     }
 
     public function home()
     {
         $user = Auth::user();
-        $defaultColor = $this->colorService->findOne([
-            "where" => ["hex", "808080"]
-        ]);
-        $defaultProject = $this->projectService->findOne([
-            "sort" => [["id"]],
-            "where" => ["userId", $user->id],
-        ]);
-        $todos = $this->todoService->findAll(([
-            "where" => ["projectId" => $defaultProject->id, "sectionId" => null]
-        ]));
-        $defaultProject->todos = $todos;
-        return view('home', ["defaultColor" => $defaultColor, "defaultProject" => $defaultProject]);
+        $defaultColor = $this->colorRepository->findByHex(ColorHex::create("808080"));
+        $defaultColorResponse = new ColorResponse();
+        $defaultColorResponse->constructFrom($defaultColor);
+        $defaultProject = $this->projectQueryService->findDefaultByUserIdSuperficial(UserId::create($user->id));
+        $defaultProjectResponse = new ProjectSuperficialResponse();
+        $defaultProjectResponse->constructFrom($defaultProject);
+        return view('home', ["defaultColor" => $defaultColorResponse, "defaultProject" => $defaultProjectResponse]);
     }
 }

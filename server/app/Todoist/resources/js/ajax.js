@@ -35,27 +35,31 @@ class Ajax {
     }
 
     get(url, data, config) {
-        if (!config) {
-            config = {};
-        }
-        config.withCredentials = true;
+        // if (!config) {
+        //     config = {};
+        // }
+        // config.withCredentials = true;
         // console.log(config);
         return axios.get(this.makeUrlWithQuery(url, data), config);
     }
 
     post(url, data, config) {
-        if (!config) {
-            config = {};
-        }
-        config.withCredentials = true;
+        // if (!config) {
+        //     config = {};
+        // }
+        // config.withCredentials = true;
         return axios.post(url, this.makeBody(data, config), config);
     }
 
+    put(url, data, config) {
+        return axios.put(this.makeUrlWithQuery(url, data), config);
+    }
+
     delete(url, data, config) {
-        if (!config) {
-            config = {};
-        }
-        config.withCredentials = true;
+        // if (!config) {
+        //     config = {};
+        // }
+        // config.withCredentials = true;
         return axios.delete(this.makeUrlWithQuery(url, data), config);
     }
 }
