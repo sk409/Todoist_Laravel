@@ -12,5 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(ColorsTableSeeder::class);
+        $this->call(PriorityTableSeeder::class);
+        $this->call(TodoStatusesTableSeeder::class);
     }
 }

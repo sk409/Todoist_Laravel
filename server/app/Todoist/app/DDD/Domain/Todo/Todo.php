@@ -17,22 +17,24 @@ use Carbon\Carbon;
 
 class Todo
 {
-
-    public static function create(TodoContent $content, TodoDueDate $dueDate, PriorityId $priorityId, ProjectId $projectId, TodoSectionId $sectionId, TodoStatus $status)
+    public static function aggregateMembers(): array
     {
-        if (!$status->getState()->isCreated()) {
-            throw new BusinessRequirementsException("Todo must be created in an incomplete state");
-        }
+        return ["status"];
+    }
+
+    public static function create(TodoContent $content, ?TodoDueDate $dueDate, ?PriorityId $priorityId, ProjectId $projectId, ?TodoSectionId $sectionId): Todo
+    {
         $todo = new Todo();
         $todo->content = $content;
         $todo->dueDate = $dueDate;
-        $todo->status = $status;
+        $todo->status = TodoStatus::created();
         $todo->priorityId = $priorityId;
         $todo->projectId = $projectId;
         $todo->sectionId = $sectionId;
+        return $todo;
     }
 
-    public static function reconstructFromStorage(TodoCompletedAt $completedAt, TodoContent $content, TodoDueDate $dueDate, TodoId $id, TodoStatus $status, PriorityId $priorityId, ProjectId $projectId, TodoSectionId $sectionId, CreatedAt $createdAt, UpdatedAt $updatedAt)
+    public static function reconstructFromStorage(?TodoCompletedAt $completedAt, TodoContent $content, ?TodoDueDate $dueDate, TodoId $id, TodoStatus $status, ?PriorityId $priorityId, ProjectId $projectId, ?TodoSectionId $sectionId, CreatedAt $createdAt, UpdatedAt $updatedAt): Todo
     {
         $todo = new Todo();
         $todo->completedAt = $completedAt;
@@ -45,6 +47,7 @@ class Todo
         $todo->sectionId = $sectionId;
         $todo->createdAt = $createdAt;
         $todo->updatedAt = $updatedAt;
+        return $todo;
     }
 
     /** @var TodoCompletedAt */
@@ -136,7 +139,7 @@ class Todo
         return $this->status->getUpdatedAt();
     }
 
-    public function getPriorityId(): PriorityId
+    public function getPriorityId(): ?PriorityId
     {
         return $this->priorityId;
     }
@@ -156,7 +159,7 @@ class Todo
         $this->projectId = $projectId;
     }
 
-    public function getSectionId(): TodoSectionId
+    public function getSectionId(): ?TodoSectionId
     {
         return $this->sectionId;
     }

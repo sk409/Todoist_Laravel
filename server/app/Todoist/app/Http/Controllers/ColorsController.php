@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use App\DDD\Infrastructure\Repository\Color\ColorRepository;
+use App\DDD\Infrastructure\Color\ColorRepository;
 use App\DDD\Presentation\Color\ColorResponse;
 
 class ColorsController

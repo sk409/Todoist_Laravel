@@ -42,15 +42,20 @@ class TodoResponse extends Response
 
     public function constructFrom(Todo $todo)
     {
-        $this->completedAt = $todo->getCompletedAt()->getValue();
+        $this->completedAt = is_null($todo->getCompletedAt()) ? null : $todo->getCompletedAt()->getValue();
         $this->content = $todo->getContent()->getValue();
-        $this->dueDate = $todo->getDueDate()->getValue();
+        $this->dueDate = is_null($todo->getDueDate()) ? null : $todo->getDueDate()->getValue();
         $this->id = $todo->getId()->getValue();
         $this->status = new TodoStatusResponse();
-        $this->status->fill($todo->getStatusId(), $todo->getStatusState(), $todo->getStatusCreatedAt(), $todo->getStatusUpdatedAt());
-        $this->priorityId = $todo->getPriorityId()->getValue();
+        $this->status->fill(
+            $todo->getStatusId(),
+            $todo->getStatusState(),
+            $todo->getStatusCreatedAt(),
+            $todo->getStatusUpdatedAt()
+        );
+        $this->priorityId = is_null($todo->getPriorityId()) ? null : $todo->getPriorityId()->getValue();
         $this->projectId = $todo->getProjectId()->getValue();
-        $this->sectionId = $todo->getSectionId()->getValue();
+        $this->sectionId = is_null($todo->getSectionId()) ? null : $todo->getSectionId()->getValue();
         $this->createdAt = $todo->getCreatedAt()->getValue();
         $this->updatedAt = $todo->getUpdatedAt()->getValue();
     }

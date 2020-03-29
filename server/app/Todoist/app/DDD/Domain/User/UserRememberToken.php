@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\User;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class UserRememberToken
+class UserRememberToken extends ValueObject
 {
-
     public const MAX_LENGTH = 100;
 
     public static function create(?string $token): UserRememberToken

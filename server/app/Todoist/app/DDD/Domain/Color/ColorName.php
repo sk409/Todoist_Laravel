@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\Color;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class ColorName
+class ColorName extends ValueObject
 {
-
     const MAX_LENGTH = 32;
 
     public static function create(string $name): ColorName

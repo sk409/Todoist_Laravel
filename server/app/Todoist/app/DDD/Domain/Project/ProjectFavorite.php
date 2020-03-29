@@ -2,9 +2,10 @@
 
 namespace App\DDD\Domain\Project;
 
-class ProjectFavorite
-{
+use App\DDD\Domain\ValueObject;
 
+class ProjectFavorite extends ValueObject
+{
     public static function create(bool $favorite): ProjectFavorite
     {
         $object = new ProjectFavorite();

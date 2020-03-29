@@ -7,6 +7,8 @@ services:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
   server:
     build: server
+    environment:
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
     ports:
       - 8090:8000
     tty: true

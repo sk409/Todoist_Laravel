@@ -1,16 +1,18 @@
 <?php
 
-use App\Services\ColorService;
+use App\DDD\Domain\Color\Color;
+use App\DDD\Domain\Color\ColorHex;
+use App\DDD\Domain\Color\ColorName;
+use App\DDD\Infrastructure\Color\ColorRepository;
 use Illuminate\Database\Seeder;
 
 class ColorsTableSeeder extends Seeder
 {
+    private $colorRepository;
 
-    private $colorService;
-
-    public function __construct(ColorService $colorService)
+    public function __construct(ColorRepository $colorRepository)
     {
-        $this->colorService = $colorService;
+        $this->colorRepository = $colorRepository;
     }
 
     /**
@@ -33,7 +35,7 @@ class ColorsTableSeeder extends Seeder
             ["チャコール", "808080"]
         ];
         foreach ($colors as $color) {
-            $this->colorService->create(["name" => $color[0], "hex" => $color[1]]);
+            $this->colorRepository->save(Color::create(ColorHex::create($color[1]), ColorName::create($color[0])));
         }
     }
 }

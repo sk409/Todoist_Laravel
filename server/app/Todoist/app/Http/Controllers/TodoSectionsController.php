@@ -4,32 +4,32 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\DDD\Domain\Project\ProjectId;
+use App\DDD\Domain\TodoSection\TodoSection;
+use App\DDD\Domain\TodoSection\TodoSectionName;
+use App\DDD\Infrastructure\TodoSection\TodoSectionRepository;
+use App\DDD\Presentation\TodoSection\TodoSectionResponse;
 use App\Http\Requests\TodoSectionStoreRequest;
-use App\Services\TodoSectionService;
-use Illuminate\Http\Request;
 
-class TodoSectionsController extends ResourceController
+class TodoSectionsController extends Controller
 {
 
-    public function __construct(TodoSectionService $todoSectionService)
+    /** @var TodoSectionRepository */
+    private $todoSectionRepository;
+
+    public function __construct(TodoSectionRepository $todoSectionRepository)
     {
-        parent::__construct($todoSectionService);
+        $this->todoSectionRepository = $todoSectionRepository;
     }
 
-    public function forHomeAll(Request $request)
+    public function store(TodoSectionStoreRequest $request): TodoSectionResponse
     {
-        $options = ["where" => $request->all()];
-        return $this->service->forHomeAll($options);
-    }
-
-    public function forHomeOne(Request $request)
-    {
-        $options = ["where" => $request->all()];
-        return $this->service->forHomeOne($options);
-    }
-
-    public function store(TodoSectionStoreRequest $request)
-    {
-        return $this->service->create($request->all());
+        $todoSection = $this->todoSectionRepository->save(TodoSection::create(
+            TodoSectionName::create($request->name),
+            ProjectId::create((int) $request->projectId)
+        ));
+        $todoSectionResponse = new TodoSectionResponse();
+        $todoSectionResponse->constructFrom($todoSection);
+        return $todoSectionResponse;
     }
 }

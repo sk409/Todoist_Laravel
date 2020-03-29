@@ -6,9 +6,9 @@ namespace App\Http\Controllers;
 
 use App\DDD\Domain\Color\ColorHex;
 use App\DDD\Domain\User\UserId;
-use App\DDD\Infrastructure\Repository\Color\ColorRepository;
+use App\DDD\Infrastructure\Color\ColorRepository;
 use App\DDD\Presentation\Color\ColorResponse;
-use App\DDD\Presentation\Project\ProjectSuperficialResponse;
+use App\DDD\Presentation\Project\Query\ProjectQuery;
 use App\DDD\Service\QueryService\Project\ProjectQueryService;
 use Illuminate\Support\Facades\Auth;
 
@@ -18,13 +18,13 @@ class HomeController extends Controller
     /** @var ColorRepository */
     private $colorRepository;
 
-    /** @var ProjectQueryService */
-    private $projectQueryService;
+    /** @var ProjectQuery */
+    private $projectQuery;
 
-    public function __construct(ColorRepository $colorRepository, ProjectQueryService $projectQueryService)
+    public function __construct(ColorRepository $colorRepository, ProjectQuery $projectQuery)
     {
         $this->colorRepository = $colorRepository;
-        $this->projectQueryService = $projectQueryService;
+        $this->projectQuery = $projectQuery;
     }
 
     public function home()
@@ -33,9 +33,7 @@ class HomeController extends Controller
         $defaultColor = $this->colorRepository->findByHex(ColorHex::create("808080"));
         $defaultColorResponse = new ColorResponse();
         $defaultColorResponse->constructFrom($defaultColor);
-        $defaultProject = $this->projectQueryService->findDefaultByUserIdSuperficial(UserId::create($user->id));
-        $defaultProjectResponse = new ProjectSuperficialResponse();
-        $defaultProjectResponse->constructFrom($defaultProject);
+        $defaultProjectResponse = $this->projectQuery->findDefaultByUserIdSuperficial(UserId::create($user->id));
         return view('home', ["defaultColor" => $defaultColorResponse, "defaultProject" => $defaultProjectResponse]);
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\DDD\Domain\User\UserEmail;
+use App\DDD\Domain\User\UserHashedPassword;
+use App\DDD\Domain\User\UserName;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,10 +18,10 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name', UserName::MAX_LENGTH);
+            $table->string('email', UserEmail::MAX_LENGTH)->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
+            $table->string('password', UserHashedPassword::MAX_LENGTH);
             $table->rememberToken();
             $table->timestamps();
         });

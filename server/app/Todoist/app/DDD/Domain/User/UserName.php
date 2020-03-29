@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\User;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class UserName
+class UserName extends ValueObject
 {
-
     public const MAX_LENGTH = 255;
 
     public static function create(string $name): UserName

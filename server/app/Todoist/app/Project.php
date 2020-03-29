@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\DDD\Domain\Color\ColorId;
 use App\DDD\Domain\CreatedAt;
 use App\DDD\Domain\Project\Project as ProjectDomain;
 use App\DDD\Domain\Project\ProjectFavorite;
 use App\DDD\Domain\Project\ProjectId;
 use App\DDD\Domain\Project\ProjectName;
 use App\DDD\Domain\UpdatedAt;
+use App\DDD\Domain\User\UserId;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +37,14 @@ class Project extends Model
 
     public function toDomain(): ProjectDomain
     {
-        return ProjectDomain::reconstructFromStorage(ProjectFavorite::create((bool) $this->favorite), ProjectId::create($this->id), ProjectName::create($this->name), CreatedAt::create($this->created_at), UpdatedAt::create($this->updated_at));
+        return ProjectDomain::reconstructFromStorage(
+            ProjectFavorite::create((bool) $this->favorite),
+            ProjectId::create($this->id),
+            ProjectName::create($this->name),
+            ColorId::create($this->color_id),
+            UserId::create($this->user_id),
+            CreatedAt::create($this->created_at),
+            UpdatedAt::create($this->updated_at)
+        );
     }
 }

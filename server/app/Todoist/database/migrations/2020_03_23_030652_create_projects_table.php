@@ -1,5 +1,6 @@
 <?php
 
+use App\DDD\Domain\Project\ProjectName;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -16,7 +17,7 @@ class CreateProjectsTable extends Migration
         Schema::create('projects', function (Blueprint $table) {
             $table->increments('id');
             $table->boolean("favorite");
-            $table->string("name", 256);
+            $table->string("name", ProjectName::MAX_LENGTH);
             $table->integer("color_id")->unsigned();
             $table->integer("user_id")->unsigned();
             $table->timestamps();

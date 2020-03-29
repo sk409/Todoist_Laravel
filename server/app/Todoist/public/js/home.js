@@ -1942,6 +1942,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         return _typeof(v) === "object" || v === null;
       }
     },
+    defaultProject: {
+      "default": null,
+      validator: function validator(v) {
+        return _typeof(v) === "object" || v === null;
+      }
+    },
     user: {
       required: true,
       type: Object
@@ -1970,7 +1976,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     createdProject: function createdProject(project) {
       var _this = this;
 
-      console.log(project);
       var data = {
         id: project.id
       };
@@ -1988,8 +1993,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       var data = {
         userId: this.user.id
       };
-      _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/projects/forHomeAll", data).then(function (response) {
-        _this2.projects = response.data;
+      _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].get("/projects/findByUserIdSuperficial", data).then(function (response) {
+        _this2.projects = response.data.filter(function (project) {
+          return _this2.defaultProject === null || project.id !== _this2.defaultProject.id;
+        });
       });
     },
     selectedProject: function selectedProject(project) {
@@ -2729,6 +2736,8 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       _ajax_js__WEBPACK_IMPORTED_MODULE_0__["default"].post("/todos", data).then(function (response) {
+        console.log(response.data);
+
         _this.$emit("created", response.data);
       });
     },
@@ -6996,7 +7005,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\js\home.js */"./resources/js/home.js");
+module.exports = __webpack_require__(/*! /Users/shoutokobayashi/Apps/Todoist_Laravel/server/app/Todoist/resources/js/home.js */"./resources/js/home.js");
 
 
 /***/ })

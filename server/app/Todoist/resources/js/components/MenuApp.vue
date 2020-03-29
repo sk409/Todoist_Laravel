@@ -42,6 +42,10 @@ export default {
       default: null,
       validator: v => typeof v === "object" || v === null
     },
+    defaultProject: {
+      default: null,
+      validator: v => typeof v === "object" || v === null
+    },
     user: {
       required: true,
       type: Object
@@ -72,7 +76,6 @@ export default {
   },
   methods: {
     createdProject(project) {
-      console.log(project);
       const data = {
         id: project.id
       };
@@ -87,8 +90,12 @@ export default {
       const data = {
         userId: this.user.id
       };
-      ajax.get("/projects/forHomeAll", data).then(response => {
-        this.projects = response.data;
+      ajax.get("/projects/findByUserIdSuperficial", data).then(response => {
+        this.projects = response.data.filter(
+          project =>
+            this.defaultProject === null ||
+            project.id !== this.defaultProject.id
+        );
       });
     },
     selectedProject(project) {

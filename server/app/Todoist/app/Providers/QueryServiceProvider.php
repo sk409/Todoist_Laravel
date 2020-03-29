@@ -2,8 +2,8 @@
 
 namespace App\Providers;
 
-use App\DDD\Infrastructure\Query\Project\ProjectQuery;
-use App\DDD\Infrastructure\Query\Project\ProjectQueryEloquent;
+use App\DDD\Presentation\Project\Query\ProjectQuery;
+use App\DDD\Presentation\Project\Query\ProjectQueryEloquent;
 use Illuminate\Support\ServiceProvider;
 
 class QueryServiceProvider extends ServiceProvider

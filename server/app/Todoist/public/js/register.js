@@ -2855,7 +2855,7 @@ new Vue({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\ubdc2\Apps\Todoist_Laravel\server\app\Todoist\resources\js\register.js */"./resources/js/register.js");
+module.exports = __webpack_require__(/*! /Users/shoutokobayashi/Apps/Todoist_Laravel/server/app/Todoist/resources/js/register.js */"./resources/js/register.js");
 
 
 /***/ })

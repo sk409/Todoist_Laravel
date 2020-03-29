@@ -4,9 +4,8 @@ namespace App\DDD\Domain;
 
 use App\Exceptions\BusinessRequirementsException;
 
-class Id
+class Id extends ValueObject
 {
-
     public const MIN = 1;
 
     public static function validate(int $id): bool

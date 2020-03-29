@@ -8,18 +8,31 @@ use App\Exceptions\BusinessRequirementsException;
 
 class TodoStatus
 {
-
-    public static function create(TodoStatusState $state)
+    public static function completed(): TodoStatus
     {
-        $this->state = $state;
+        return self::create(TodoStatusState::completed());
+    }
+
+    public static function create(TodoStatusState $state): TodoStatus
+    {
+        $todoStatus = new TodoStatus();
+        $todoStatus->state = $state;
+        return $todoStatus;
+    }
+
+    public static function created(): TodoStatus
+    {
+        return self::create(TodoStatusState::created());
     }
 
     public static function reconstructFromStorage(TodoStatusId $id, TodoStatusState $state, CreatedAt $createdAt, UpdatedAt $updatedAt)
     {
-        $this->id = $id;
-        $this->state = $state;
-        $this->createdAt = $createdAt;
-        $this->updatedAt = $updatedAt;
+        $todoStatus = new TodoStatus();
+        $todoStatus->id = $id;
+        $todoStatus->state = $state;
+        $todoStatus->createdAt = $createdAt;
+        $todoStatus->updatedAt = $updatedAt;
+        return $todoStatus;
     }
 
     /** @var TodoStatusId */

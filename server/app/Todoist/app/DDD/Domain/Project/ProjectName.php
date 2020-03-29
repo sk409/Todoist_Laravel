@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\Project;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class ProjectName
+class ProjectName extends ValueObject
 {
-
     public const MAX_LENGTH = 256;
 
     public static function create(string $name)

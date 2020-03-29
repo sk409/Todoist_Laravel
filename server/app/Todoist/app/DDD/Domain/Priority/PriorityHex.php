@@ -2,12 +2,11 @@
 
 namespace App\DDD\Domain\Priority;
 
-
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class PriorityHex
+class PriorityHex extends ValueObject
 {
-
     public const LENGTH = 6;
 
     public static function create(string $hex): PriorityHex

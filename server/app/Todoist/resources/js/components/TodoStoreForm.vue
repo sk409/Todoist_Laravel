@@ -38,6 +38,7 @@ export default {
         data.sectionId = this.sectionId;
       }
       ajax.post("/todos", data).then(response => {
+        console.log(response.data);
         this.$emit("created", response.data);
       });
     },

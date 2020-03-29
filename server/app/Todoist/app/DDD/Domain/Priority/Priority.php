@@ -7,15 +7,15 @@ use App\DDD\Domain\UpdatedAt;
 
 class Priority
 {
-
-    public static function create(PriorityHex $hex, PriorityName $name)
+    public static function create(PriorityHex $hex, PriorityName $name): Priority
     {
         $priority = new Priority();
         $priority->hex = $hex;
         $priority->name = $name;
+        return $priority;
     }
 
-    public static function reconstructFromStorage(PriorityHex $hex, PriorityId $id, PriorityName $name, CreatedAt $createdAt, UpdatedAt $updatedAt)
+    public static function reconstructFromStorage(PriorityHex $hex, PriorityId $id, PriorityName $name, CreatedAt $createdAt, UpdatedAt $updatedAt): Priority
     {
         $priority = new Priority();
         $priority->hex = $hex;
@@ -23,6 +23,7 @@ class Priority
         $priority->name = $name;
         $priority->createdAt = $createdAt;
         $priority->updatedAt = $updatedAt;
+        return $priority;
     }
 
     /** @var PriorityHex */
@@ -39,6 +40,31 @@ class Priority
 
     /** @var UpdatedAt */
     private $updatedAt;
+
+    public function getHex(): PriorityHex
+    {
+        return $this->hex;
+    }
+
+    public function getId(): PriorityId
+    {
+        return $this->id;
+    }
+
+    public function getName(): PriorityName
+    {
+        return $this->name;
+    }
+
+    public function getCreatedAt(): CreatedAt
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): UpdatedAt
+    {
+        return $this->updatedAt;
+    }
 
     private function __construct()
     {

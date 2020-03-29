@@ -1,5 +1,6 @@
 <?php
 
+use App\DDD\Domain\Priority\PriorityName;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -15,7 +16,7 @@ class CreatePriorityTable extends Migration
     {
         Schema::create('priority', function (Blueprint $table) {
             $table->increments('id');
-            $table->string("name", 32);
+            $table->string("name", PriorityName::MAX_LENGTH);
             $table->char("hex", 6);
             $table->timestamps();
             $table->unique("name");

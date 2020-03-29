@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\Priority;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class PriorityName
+class PriorityName extends ValueObject
 {
-
     const MAX_LENGTH = 32;
 
     public static function create(string $name): PriorityName

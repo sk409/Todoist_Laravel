@@ -1,16 +1,18 @@
 <?php
 
-use App\Services\PriorityService;
+use App\DDD\Domain\Priority\Priority;
+use App\DDD\Domain\Priority\PriorityHex;
+use App\DDD\Domain\Priority\PriorityName;
+use App\DDD\Infrastructure\Priority\PriorityRepository;
 use Illuminate\Database\Seeder;
 
 class PriorityTableSeeder extends Seeder
 {
+    private $priorityRepository;
 
-    private $priorityService;
-
-    public function __construct(PriorityService $priorityService)
+    public function __construct(PriorityRepository $priorityRepository)
     {
-        $this->priorityService = $priorityService;
+        $this->priorityRepository = $priorityRepository;
     }
 
     /**
@@ -27,10 +29,10 @@ class PriorityTableSeeder extends Seeder
             ["1", "D1453B"]
         ];
         foreach ($priorityList as $priority) {
-            $this->priorityService->create([
-                "name" => $priority[0],
-                "hex" => $priority[1]
-            ]);
+            $this->priorityRepository->save(Priority::create(
+                PriorityHex::create($priority[1]),
+                PriorityName::create($priority[0])
+            ));
         }
     }
 }

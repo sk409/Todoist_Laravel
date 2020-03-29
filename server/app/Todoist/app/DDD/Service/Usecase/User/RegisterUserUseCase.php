@@ -6,7 +6,7 @@ use App\DDD\Domain\User\User;
 use App\DDD\Domain\User\UserEmail;
 use App\DDD\Domain\User\UserHashedPassword;
 use App\DDD\Domain\User\UserName;
-use App\DDD\Infrastructure\Repository\User\UserRepository;
+use App\DDD\Infrastructure\User\UserRepository;
 use App\DDD\Service\UseCase\Project\StoreDefaultProjectUseCase;
 
 class RegisterUserUseCase
@@ -26,7 +26,7 @@ class RegisterUserUseCase
 
     public function execute(UserEmail $email, UserHashedPassword $hashedPassword, UserName $name): User
     {
-        $user = $this->userRepository->save($email, $hashedPassword, $name);
+        $user = $this->userRepository->save(User::create($email, $hashedPassword, $name));
         $this->storeDefaultProjectUseCase->execute($user->getId());
         return $user;
     }

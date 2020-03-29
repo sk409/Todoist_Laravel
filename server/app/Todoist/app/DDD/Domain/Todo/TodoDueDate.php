@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\Todo;
 
+use App\DDD\Domain\ValueObject;
 use Carbon\Carbon;
 
-class TodoDueDate
+class TodoDueDate extends ValueObject
 {
-
     public static function create(Carbon $date): TodoDueDate
     {
         $object = new TodoDueDate();

@@ -2,12 +2,13 @@
 
 namespace App\DDD\Domain;
 
-class Email
+class Email extends ValueObject
 {
+    public const MAX_LENGTH = 255;
 
     public static function validate($email): bool
     {
-        return !validator([$email], ["email"])->fails();
+        return !validator([$email], ["email|max:" . self::MAX_LENGTH])->fails();
     }
 
     /** @var string */

@@ -2,15 +2,23 @@
 
 namespace App\DDD\Domain\TodoStatus;
 
-use App\Exceptions\BusinessRequirementsException;
+use App\DDD\Domain\ValueObject;
 
-class TodoStatusState
+class TodoStatusState extends ValueObject
 {
-
     public const MAX_LENGTH = 32;
 
     public const CREATED = "Created";
     public const COMPLETED = "Completed";
+
+    public static function all(): array
+    {
+        return array_map(function ($state) {
+            $object = new TodoStatusState();
+            $object->state = $state;
+            return $object;
+        }, self::states());
+    }
 
     public static function created(): TodoStatusState
     {
@@ -26,9 +34,16 @@ class TodoStatusState
         return $todoStatusState;
     }
 
-    public static function validate($state): bool
+    public static function reconstructFromStorage(string $state)
     {
-        return !validator([$state], ["max:" . self::MAX_LENGTH])->fails();
+        $todoStatusState = new TodoStatusState();
+        $todoStatusState->state = $state;
+        return $todoStatusState;
+    }
+
+    public static function states(): array
+    {
+        return [self::CREATED, self::COMPLETED];
     }
 
     /** @var string */

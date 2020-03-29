@@ -2,12 +2,12 @@
 
 namespace App\DDD\Domain\Todo;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 use Illuminate\Support\Facades\Validator;
 
-class TodoContent
+class TodoContent extends ValueObject
 {
-
     public const MAX_LENGTH = 1024;
 
     public static function create(string $content): TodoContent
@@ -22,7 +22,7 @@ class TodoContent
 
     public static function validate($content): bool
     {
-        return !Validator::make([$content], "max:")->fails();
+        return !validator([$content], ["max:" . self::MAX_LENGTH])->fails();
     }
 
     /** @var string */

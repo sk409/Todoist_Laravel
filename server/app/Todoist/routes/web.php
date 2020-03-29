@@ -20,11 +20,9 @@ Route::group(["middleware" => ["auth"]], function () {
     Route::get('/home', 'HomeController@home')->name('home');
     Route::get("/colors", "ColorsController@index")->name("colors.index");
     Route::get("/projects/findByIdSuperficial", "ProjectsController@findByIdSuperficial")->name("projects.findByIdSuperficial");
+    Route::get("/projects/findByUserIdSuperficial", "ProjectsController@findByUserIdSuperficial")->name("projects.findByUserIdSuperficial");
     Route::post("/projects", "ProjectsController@store")->name("projects.store");
-
     Route::post("/todos", "TodosController@store")->name("todos.store");
     Route::put("/todos/{id}", "TodosController@update")->name("todos.update");
-    Route::get("/todoSections/forHomeAll", "TodoSectionsController@forHomeAll")->name("todoSections.forHomeAll");
-    Route::get("/todoSections/forHomeOne", "TodoSectionsController@forHomeOne")->name("todoSections.forHomeOne");
     Route::post("/todoSections", "TodoSectionsController@store")->name("todoSections.store");
 });

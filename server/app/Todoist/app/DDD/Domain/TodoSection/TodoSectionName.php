@@ -2,11 +2,11 @@
 
 namespace App\DDD\Domain\TodoSection;
 
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class TodoSectionName
+class TodoSectionName extends ValueObject
 {
-
     const MAX_LENGTH = 256;
 
     public static function create(string $name): TodoSectionName

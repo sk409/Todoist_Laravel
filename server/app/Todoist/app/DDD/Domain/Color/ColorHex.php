@@ -2,12 +2,11 @@
 
 namespace App\DDD\Domain\Color;
 
-
+use App\DDD\Domain\ValueObject;
 use App\Exceptions\BusinessRequirementsException;
 
-class ColorHex
+class ColorHex extends ValueObject
 {
-
     public const LENGTH = 6;
 
     public static function create(string $hex): ColorHex

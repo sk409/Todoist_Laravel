@@ -5,17 +5,18 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\DDD\Domain\Color\ColorId;
+use App\DDD\Domain\Project\Project;
 use App\DDD\Domain\Project\ProjectFavorite;
 use App\DDD\Domain\Project\ProjectId;
 use App\DDD\Domain\Project\ProjectName;
 use App\DDD\Domain\User\UserId;
-use App\DDD\Infrastructure\Query\Project\ProjectQuery;
-use App\DDD\Infrastructure\Repository\Project\ProjectRepository;
+use App\DDD\Presentation\Project\Query\ProjectQuery;
+use App\DDD\Infrastructure\Project\ProjectRepository;
 use App\DDD\Presentation\Project\ProjectResponse;
 use App\DDD\Presentation\Project\ProjectSuperficialResponse;
 use App\Http\Requests\ProjectFindByIdSuperficialRequest;
+use App\Http\Requests\ProjectFindByUserIdSuperficial;
 use App\Http\Requests\ProjectStoreRequest;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ProjectsController extends Controller
@@ -35,12 +36,12 @@ class ProjectsController extends Controller
 
     public function store(ProjectStoreRequest $request): ProjectResponse
     {
-        $project = $this->projectRepository->save(
+        $project = $this->projectRepository->save(Project::create(
             ProjectFavorite::create((bool) $request->favorite),
             ProjectName::create($request->name),
             ColorId::create((int) $request->colorId),
             UserId::create(Auth::user()->id)
-        );
+        ));
         $projectResponse = new ProjectResponse();
         $projectResponse->constructFrom($project);
         return $projectResponse;
@@ -48,12 +49,11 @@ class ProjectsController extends Controller
 
     public function findByIdSuperficial(ProjectFindByIdSuperficialRequest $request): ?ProjectSuperficialResponse
     {
-        $project = $this->projectQuery->findByIdSuperficial(ProjectId::create((int) $request->id));
-        if (is_null($project)) {
-            return null;
-        }
-        $projectSuperficialResponse = new ProjectSuperficialResponse();
-        $projectSuperficialResponse->constructFrom($project);
-        return $projectSuperficialResponse;
+        return $this->projectQuery->findByIdSuperficial(ProjectId::create((int) $request->id));
+    }
+
+    public function findByUserIdSuperficial(ProjectFindByUserIdSuperficial $request): array
+    {
+        return $this->projectQuery->findByUserIdSuperficial(UserId::create((int)$request->userId));
     }
 }
